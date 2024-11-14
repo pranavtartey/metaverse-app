@@ -4,7 +4,9 @@ import { CreateSpaceSchema } from "../types";
 
 export const newSpace = async (req: Request, res: Response) => {
     try {
-        const parsedData = CreateSpaceSchema.safeParse(req.body);
+        
+        const { data } = req.body
+        const parsedData = CreateSpaceSchema.safeParse(data);
 
         if (!parsedData.success) {
             res.status(400).json({

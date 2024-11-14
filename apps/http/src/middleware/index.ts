@@ -6,7 +6,7 @@ interface DecodedType {
     username: string;
 }
 
-export const userMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const userMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const header = req.headers["authorization"]
     const token = header?.split(" ")[1];
 
@@ -23,7 +23,7 @@ export const userMiddleware = async (req: Request, res: Response, next: NextFunc
     try {
         const jwtSecret = process.env.JWT_SECRET as string
 
-        const decoded  = jwt.verify(token, jwtSecret) as DecodedType;
+        const decoded = jwt.verify(token, jwtSecret) as DecodedType;
 
         req.userId = decoded.userId;
         req.username = decoded.username;
