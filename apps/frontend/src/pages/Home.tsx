@@ -5,6 +5,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import NewRoom from "./NewRoom";
+import AllRooms from "./AllRooms";
 
 const Home = () => {
   return (
@@ -18,6 +19,13 @@ const Home = () => {
         </DialogContent>
       </Dialog>
       <p>Join a room</p>
+      <Dialog>
+        <DialogTrigger>All Rooms</DialogTrigger>
+        <DialogContent>
+          <DialogTitle>All rooms</DialogTitle>
+          <AllRooms />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

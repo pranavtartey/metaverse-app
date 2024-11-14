@@ -4,7 +4,7 @@ import { CreateSpaceSchema } from "../types";
 
 export const newSpace = async (req: Request, res: Response) => {
     try {
-        
+
         const { data } = req.body
         const parsedData = CreateSpaceSchema.safeParse(data);
 
@@ -20,7 +20,8 @@ export const newSpace = async (req: Request, res: Response) => {
             data: {
                 name: parsedData.data.name,
                 width: parseInt(parsedData.data.dimensions.split("x")[0]),
-                height: parseInt(parsedData.data.dimensions.split("x")[1])
+                height: parseInt(parsedData.data.dimensions.split("x")[1]),
+                creatorId: req.userId!
             }
         })
 
@@ -33,4 +34,17 @@ export const newSpace = async (req: Request, res: Response) => {
     } catch (error) {
         console.error("Something went wrong in the newSpace controller : ", error)
     }
+}
+
+export const getAll = async (req: Request, res: Response): Promise<void> => {
+    console.log("hello")
+    const allMaps = await prisma.map.findMany({
+        where: {
+            creatorId: req.userId
+        }
+    })
+    console.log(allMaps);
+    res.json({
+        maps: allMaps
+    })
 }
