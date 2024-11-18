@@ -1,5 +1,7 @@
+import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface RoomsPropsType {
   id: string;
@@ -9,7 +11,16 @@ interface RoomsPropsType {
   creatorId: string;
 }
 
+interface RoomType {
+  id: string;
+  name: string;
+  width: number;
+  height: number;
+  creatorId: string;
+}
+
 const AllRooms = () => {
+  const navigate = useNavigate();
   const [rooms, setRooms] = useState<RoomsPropsType[]>([]);
 
   useEffect(() => {
@@ -29,13 +40,23 @@ const AllRooms = () => {
     getRooms();
   }, []);
 
+  const roomHandler = (room: RoomType) => {
+    navigate(`/arena/${room.id}`);
+  };
+
   return (
     <div>
-      <ul>
-        {rooms.map((room) => (
-          <li key={room.id}>{room.name}</li>
-        ))}
-      </ul>
+      {rooms.map((room) => (
+        <Button
+          onClick={() => {
+            roomHandler(room);
+          }}
+          variant="link"
+          key={room.id}
+        >
+          {room.name}
+        </Button>
+      ))}
     </div>
   );
 };

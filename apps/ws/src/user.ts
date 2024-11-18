@@ -31,14 +31,14 @@ export class User {
     }
 
     initHandlers() {
-        console.log("Hello ji")
+        // console.log("Hello ji")
         //the on message is only called when the ws recieves a new message from the client baki the class constructor will call the initHandler so the console.log will always be logged as soon as the connection is made with the new client
         this.ws.on("message", async (data) => {
             console.log(data.toString());//without the toString() the data is of <Buffer 6b 75 63 68 20 62 68 69 20 6b 65 68 20 64 65 20 62 68 61 69> this pattern and as we apply the toString() we get the message in the human readable string format :)
 
             const parsedData = JSON.parse(data.toString());
 
-            console.log("This is your parsedData : ", parsedData)
+            // console.log("This is your parsedData : ", parsedData)
 
             switch (parsedData.type) {
                 case "join":
@@ -69,6 +69,9 @@ export class User {
                     this.x = Math.floor(Math.random() * map?.width);
                     this.y = Math.floor(Math.random() * map?.height)
 
+                    console.log("X : ", this.x)
+                    console.log("Y : ", this.y)
+
                     this.send({
                         type: "space-joined",
                         payload: {
@@ -80,14 +83,14 @@ export class User {
                         }
                     })
 
-                    RoomManager.getInstance().broadcast({
-                        type: "user-joined",
-                        payload: {
-                            userId: this.userId,
-                            x: this.x,
-                            y: this.y
-                        }
-                    }, this, this.mapId!)
+                    // RoomManager.getInstance().broadcast({
+                    //     type: "user-joined",
+                    //     payload: {
+                    //         userId: this.userId,
+                    //         x: this.x,
+                    //         y: this.y
+                    //     }
+                    // }, this, this.mapId!)
                     break;
 
 

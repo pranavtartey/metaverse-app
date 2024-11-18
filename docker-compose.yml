@@ -1,0 +1,14 @@
+name: metaverse-app
+services : 
+  db : 
+    container_name : metaverse_postgres
+    image : postgres
+    environment :
+      POSTGRES_PASSWORD : mysecretpassword
+    ports : 
+      - "5432:5432"
+    volumes : 
+      - metaverse_data:/var/lib/postgresql/data
+volumes : 
+  metaverse_data:
+    

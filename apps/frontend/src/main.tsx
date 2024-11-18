@@ -7,6 +7,7 @@ import App from "./App.tsx";
 import Home from "./pages/Home.tsx";
 const Signup = lazy(() => import("./pages/Signup.tsx"));
 const Signin = lazy(() => import("./pages/Signin.tsx"));
+const Arena = lazy(() => import("./pages/Arena.tsx"));
 // import Signup from "./components/Signup.tsx";
 // import Signin from "./components/Signin.tsx";
 
@@ -27,12 +28,16 @@ const router = createBrowserRouter([
         path: "/signin",
         element: <Signin />,
       },
+      {
+        path: "/arena/:id",
+        element: <Arena />,
+      },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+  // <StrictMode>
+  <RouterProvider router={router} />
+  // </StrictMode>
 );

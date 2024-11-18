@@ -4,6 +4,8 @@ import { SigninFormSchema } from "../types";
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
 import { signinState } from "../atom";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface InputValueProps {
   username: string;
@@ -62,7 +64,7 @@ const Signin = () => {
       <h1>Signin page</h1>
       <form onSubmit={submitHandler}>
         <label htmlFor="username">Username : </label>
-        <input
+        <Input
           id="username"
           name="username"
           type="text"
@@ -71,7 +73,7 @@ const Signin = () => {
           onChange={changeHandler}
         />
         <label htmlFor="password">Password : </label>
-        <input
+        <Input
           id="password"
           name="password"
           type="password"
@@ -79,9 +81,11 @@ const Signin = () => {
           value={inputValue.password}
           onChange={changeHandler}
         />
-        <button type="submit">Submit</button>
+        <Button variant={"default"}>Sign in</Button>
       </form>
-      <Link to="/signup">Don't have an account?</Link>
+      <Link className="hover:text-blue-500 transition" to="/signup">
+        Don't have an account?
+      </Link>
     </div>
   );
 };

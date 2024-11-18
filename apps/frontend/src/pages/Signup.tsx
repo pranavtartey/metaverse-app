@@ -4,7 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { signinState } from "../atom";
-
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface InputFormProps {
   name: string;
@@ -13,9 +14,8 @@ interface InputFormProps {
 }
 
 const Signup = () => {
-
-  const navigate = useNavigate()
-  const setLogin = useSetRecoilState(signinState)
+  const navigate = useNavigate();
+  const setLogin = useSetRecoilState(signinState);
   const [inputValue, setInputValue] = useState<InputFormProps>({
     name: "",
     password: "",
@@ -50,11 +50,11 @@ const Signup = () => {
     localStorage.setItem("token", response.data.token);
 
     setLogin({
-      isLoggedin : true,
-      name : response.data.name
-    })
+      isLoggedin: true,
+      name: response.data.name,
+    });
 
-    navigate("/")
+    navigate("/");
 
     const token = response.data.token.split(" ")[1];
     console.log(token);
@@ -65,7 +65,7 @@ const Signup = () => {
       <h1>Signup page</h1>
       <form onSubmit={submitHandler}>
         <label htmlFor="name">Name : </label>
-        <input
+        <Input
           id="name"
           type="text"
           name="name"
@@ -74,7 +74,7 @@ const Signup = () => {
           onChange={changeHandler}
         />
         <label htmlFor="username">Username : </label>
-        <input
+        <Input
           id="username"
           type="text"
           name="username"
@@ -83,7 +83,7 @@ const Signup = () => {
           onChange={changeHandler}
         />
         <label htmlFor="password">Password : </label>
-        <input
+        <Input
           id="password"
           type="password"
           name="password"
@@ -91,7 +91,7 @@ const Signup = () => {
           value={inputValue.password}
           onChange={changeHandler}
         />
-        <button type="submit">Submit</button>
+        <Button value={"default"}>Sign up</Button>
       </form>
     </div>
   );

@@ -8,7 +8,7 @@ export const signinState = atom({
     }
 })
 
-export const countState = atom({
-    key: "countState",
-    default: 0
-})
+// export const countState = atom({
+//     key: "countState",
+//     default: 0
+// })
