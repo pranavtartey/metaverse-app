@@ -9,6 +9,7 @@ import AllRooms from "./AllRooms";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { signinState } from "@/atom";
+import JoinRoom from "./joinRoom";
 
 const Home = () => {
   const setloginState = useSetRecoilState(signinState);
@@ -30,12 +31,20 @@ const Home = () => {
           <NewRoom />
         </DialogContent>
       </Dialog>
-      <p>Join a room</p>
+      <br />
       <Dialog>
         <DialogTrigger>All Rooms</DialogTrigger>
         <DialogContent>
           <DialogTitle>All rooms</DialogTitle>
           <AllRooms />
+        </DialogContent>
+      </Dialog>
+      <br />
+      <Dialog>
+        <DialogTrigger>Join room</DialogTrigger>
+        <DialogContent>
+          <DialogTitle>Join Room</DialogTitle>
+          <JoinRoom />
         </DialogContent>
       </Dialog>
     </div>

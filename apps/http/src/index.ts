@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(CORS())
 const PORT = process.env.PORT || 3000
 
-app.use("/api/v1/", router)
+app.use("/api/v1", router)
 
 app.listen(PORT, () => {
     console.log("Hello from the http server")

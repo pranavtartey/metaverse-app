@@ -24,7 +24,7 @@ const AllRooms = () => {
   const [rooms, setRooms] = useState<RoomsPropsType[]>([]);
 
   useEffect(() => {
-    console.log("Hello ji from allRooms");
+    // console.log("Hello ji from allRooms");
     const getRooms = async () => {
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/v1/space/get-all`,
@@ -34,14 +34,15 @@ const AllRooms = () => {
           },
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       setRooms(response.data.maps);
     };
     getRooms();
   }, []);
 
   const roomHandler = (room: RoomType) => {
-    navigate(`/arena/${room.id}`);
+    // console.log("This is your room from the allRooms page : ", room);
+    navigate(`/arena/${room.id}`, { state: room });
   };
 
   return (

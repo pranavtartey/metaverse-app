@@ -34,7 +34,7 @@ export class User {
         // console.log("Hello ji")
         //the on message is only called when the ws recieves a new message from the client baki the class constructor will call the initHandler so the console.log will always be logged as soon as the connection is made with the new client
         this.ws.on("message", async (data) => {
-            console.log(data.toString());//without the toString() the data is of <Buffer 6b 75 63 68 20 62 68 69 20 6b 65 68 20 64 65 20 62 68 61 69> this pattern and as we apply the toString() we get the message in the human readable string format :)
+            // console.log(data.toString());//without the toString() the data is of <Buffer 6b 75 63 68 20 62 68 69 20 6b 65 68 20 64 65 20 62 68 61 69> this pattern and as we apply the toString() we get the message in the human readable string format :)
 
             const parsedData = JSON.parse(data.toString());
 
@@ -64,10 +64,10 @@ export class User {
                         this.ws.close();
                         return
                     }
-
-                    RoomManager.getInstance().addUser(mapId, this);
+                    this.mapId = map.id
                     this.x = Math.floor(Math.random() * map?.width);
                     this.y = Math.floor(Math.random() * map?.height)
+                    RoomManager.getInstance().addUser(mapId, this);
 
                     console.log("X : ", this.x)
                     console.log("Y : ", this.y)
@@ -79,18 +79,20 @@ export class User {
                                 x: this.x,
                                 y: this.y
                             },
-                            users: RoomManager.getInstance().rooms.get(mapId)?.filter(x => x.id !== this.id).map(u => ({ id: u.id })) ?? []
+                            userId: this.id,
+                            users: RoomManager.getInstance().rooms.get(this.mapId)?.filter(x => x.id !== this.id)?.map(u => ({ userId: u.id, x: u.x, y: u.y })) ?? []
                         }
                     })
 
-                    // RoomManager.getInstance().broadcast({
-                    //     type: "user-joined",
-                    //     payload: {
-                    //         userId: this.userId,
-                    //         x: this.x,
-                    //         y: this.y
-                    //     }
-                    // }, this, this.mapId!)
+                    RoomManager.getInstance().broadcast({
+                        type: "user-joined",
+                        payload: {
+                            userId: this.id,
+                            x: this.x,
+                            y: this.y
+                        }
+                    }, this, this.mapId!)
+                    console.log("This is the mapId from user ws : ", this.mapId)
                     break;
 
 
@@ -101,14 +103,16 @@ export class User {
                     const yDisplacement = Math.abs(this.y - moveY);
 
                     if ((xDisplacement == 1 && yDisplacement == 0) || (xDisplacement == 0 && yDisplacement == 1)) {
+                        // console.log("I am working!!!")
                         this.x = moveX
                         this.y = moveY
                         RoomManager.getInstance().broadcast({
                             type: "movement",
                             payload: {
                                 x: this.x,
-                                y: this.y
-                            }
+                                y: this.y,
+                                userId: this.id,
+                            },
                         }, this, this.mapId!)
                         return
                     }

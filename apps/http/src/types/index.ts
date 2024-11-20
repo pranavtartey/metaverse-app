@@ -16,6 +16,8 @@ export const CreateSpaceSchema = z.object({
     dimensions : z.string().regex(/^[0-9]{1,4}x[0-9]{1,4}$/)
 })
 
+export const GetSpace = z.string()
+
 declare global {
     namespace Express {
         export interface Request {
