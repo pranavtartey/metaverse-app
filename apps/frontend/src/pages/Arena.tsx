@@ -230,16 +230,16 @@ const Arena = () => {
     const { x, y } = currentUser;
     switch (e.key) {
       case "ArrowUp":
-        handleMove(x, y - 1);
+        handleMove(x, y - 5);
         break;
       case "ArrowDown":
-        handleMove(x, y + 1);
+        handleMove(x, y + 5);
         break;
       case "ArrowLeft":
-        handleMove(x - 1, y);
+        handleMove(x - 5, y);
         break;
       case "ArrowRight":
-        handleMove(x + 1, y);
+        handleMove(x + 5, y);
         break;
     }
   };

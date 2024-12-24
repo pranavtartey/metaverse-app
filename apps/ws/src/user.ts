@@ -44,7 +44,7 @@ export class User {
                 case "join":
                     console.log("Join Event Received");
                     const mapId = parsedData.payload.mapId;
-                    const token = parsedData.payload.token;
+                    const token = parsedData.payload.token
                     const userId = (jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload).userId
 
                     if (!userId) {
@@ -102,7 +102,7 @@ export class User {
                     const xDisplacement = Math.abs(this.x - moveX);
                     const yDisplacement = Math.abs(this.y - moveY);
 
-                    if ((xDisplacement == 1 && yDisplacement == 0) || (xDisplacement == 0 && yDisplacement == 1)) {
+                    if ((xDisplacement == 5 && yDisplacement == 0) || (xDisplacement == 0 && yDisplacement == 5)) {
                         // console.log("I am working!!!")
                         this.x = moveX
                         this.y = moveY
